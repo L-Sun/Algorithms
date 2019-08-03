@@ -1,28 +1,12 @@
-#include <iostream>
 #include <string>
 #include <fstream>
-#include <chrono>
 #include <random>
 #include <iomanip>
 #include <cmath>
 
-#include "Algorithms/BST.hpp"
+#include "testFunction.hpp"
 
-using namespace std;
-using namespace chrono;
-
-template <typename F, typename... Args>
-void timeFuncInvocation(F&& func, Args&&... params) {
-    auto start = steady_clock::now();
-
-    std::forward<decltype(func)>(func)(
-        std::forward<decltype(params)>(params)...);
-
-    auto end   = steady_clock::now();
-    auto delta = duration_cast<milliseconds>(end - start);
-
-    cout << delta.count() << " ms total." << endl;
-};
+#include "BST.hpp"
 
 template <class S>
 void build_table(const string& input, const string& output) {
@@ -57,21 +41,16 @@ void build_random_table(size_t N, bool isRandom) {
     st.vertify();
     while (st.size() < N) st.insert(dist1(e), dist1(e));
     ofstream ofsm("./Asset/text/x.txt");
-    for (size_t i = 0; i < N * N; i++) {
+    for (size_t i = 0; i < N; i++) {
         int  rank = dist2(e);
         auto key  = st.select(rank);
         auto x    = st.size();
         auto v    = st.get(key);
         st.del(key, isRandom);
-        if (st.size() != x - 1) {
-            st.print(ofsm);
-            throw;
-        }
+
         key = dist1(e);
         st.insert(key, dist1(e));
-        if (st.size() != x) {
-            throw;
-        }
+        if (i % (100 * N) == 0) cout << 100.0 * (i / N) / N << "%" << endl;
     }
     cout << "AOIPL=" << setw(8) << left << st.meanInnerPathLen() << endl;
 }
@@ -83,10 +62,6 @@ int main(int argc, char* argv[]) {
     output = argc == 3 ? argv[2] : "./Asset/text/x.txt";
 
     timeFuncInvocation(build_table<BST<string, unsigned>>, input, output);
-    timeFuncInvocation(build_random_table<BST<size_t, size_t>>, std::pow(10, 2),
-                       false);
-    timeFuncInvocation(build_random_table<BST<size_t, size_t>>, std::pow(10, 2),
-                       true);
     timeFuncInvocation(build_random_table<BST<size_t, size_t>>, std::pow(10, 3),
                        false);
     timeFuncInvocation(build_random_table<BST<size_t, size_t>>, std::pow(10, 3),
@@ -94,6 +69,10 @@ int main(int argc, char* argv[]) {
     timeFuncInvocation(build_random_table<BST<size_t, size_t>>, std::pow(10, 4),
                        false);
     timeFuncInvocation(build_random_table<BST<size_t, size_t>>, std::pow(10, 4),
+                       true);
+    timeFuncInvocation(build_random_table<BST<size_t, size_t>>, std::pow(10, 6),
+                       false);
+    timeFuncInvocation(build_random_table<BST<size_t, size_t>>, std::pow(10, 6),
                        true);
     return 0;
 }

@@ -1,38 +1,11 @@
 {
     "clang.cxxflags": [
         "-Wno-pragma-once-outside-header",
-        "-IC:/googletest/googletest/include"
+        "-IC:/googletest/googletest/include",
+        "-I/home/lawliet/workspace/cpp/Algorithms/Algorithms"
     ],
     "clang.completion.enable": false,
-    "files.associations": {
-        "vector": "cpp",
-        "ostream": "cpp",
-        "algorithm": "cpp",
-        "cstddef": "cpp",
-        "cwchar": "cpp",
-        "exception": "cpp",
-        "functional": "cpp",
-        "initializer_list": "cpp",
-        "iomanip": "cpp",
-        "ios": "cpp",
-        "istream": "cpp",
-        "map": "cpp",
-        "memory": "cpp",
-        "new": "cpp",
-        "sstream": "cpp",
-        "stdexcept": "cpp",
-        "streambuf": "cpp",
-        "system_error": "cpp",
-        "tuple": "cpp",
-        "type_traits": "cpp",
-        "xiosbase": "cpp",
-        "xlocale": "cpp",
-        "xlocinfo": "cpp",
-        "xlocmon": "cpp",
-        "xlocnum": "cpp",
-        "xloctime": "cpp",
-        "xmemory0": "cpp",
-        "xstddef": "cpp",
-        "xstring": "cpp"
+    "path-intellisense.mappings": {
+        "Asset": "${workspaceRoot}/Asset"
     }
 }

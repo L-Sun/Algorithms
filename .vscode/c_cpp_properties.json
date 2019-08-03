@@ -22,7 +22,7 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
-                "${workspaceFolder}/Framework/GeomMath"
+                "${workspaceFolder}/Algorithms"
             ],
             "defines": [
                 "_DEBUG"

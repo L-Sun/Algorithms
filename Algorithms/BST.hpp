@@ -116,7 +116,7 @@ private:
         return node->m_pLeft && node->m_pRight;
     }
     size_t rank(std::shared_ptr<t_node> node, const K& key) const {
-        if (!node) return nullptr;
+        if (!node) return 0;
         if (key < node->m_key)
             return rank(node->m_pLeft, key);
         else if (key > node->m_key)
