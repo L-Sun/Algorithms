@@ -6,10 +6,10 @@ set(CMAKE_C_STANDARD 11)
 
 include_directories("${PROJECT_SOURCE_DIR}/Algorithms")
 
-include(CTest)
-find_package(GTest REQUIRED)
-include_directories(${GTEST_INCLUDE_DIRS})
 
-enable_testing()
-
-add_subdirectory(Test)
+file(GLOB pat_files  PATest/*.cpp)
+foreach(file  ${pat_files})
+    get_filename_component(temp ${file} NAME)
+    string(REPLACE ".cpp" "" name ${temp})
+    add_executable(${name} ${file})
+endforeach(file)
