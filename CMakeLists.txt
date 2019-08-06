@@ -6,6 +6,7 @@ set(CMAKE_C_STANDARD 11)
 
 include_directories("${PROJECT_SOURCE_DIR}/Algorithms")
 
+add_subdirectory("${PROJECT_SOURCE_DIR}/Test")
 
 file(GLOB pat_files  PATest/*.cpp)
 foreach(file  ${pat_files})
