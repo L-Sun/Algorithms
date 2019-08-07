@@ -4,9 +4,11 @@
 #include <iomanip>
 #include <cmath>
 
-#include "testFunction.hpp"
+#include "testTool.hpp"
 
-#include "BST.hpp"
+#include "Tree/BST.hpp"
+
+using namespace std;
 
 template <class S>
 void build_table(const string& input, const string& output) {

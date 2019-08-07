@@ -1,4 +1,4 @@
-#include "DiGraph.hpp"
+#include "Graph/DiGraph.hpp"
 #include "testTool.hpp"
 #include <iostream>
 

@@ -1,5 +1,5 @@
-#include "Graph.hpp"
-#include "UF.hpp"
+#include "Graph/Graph.hpp"
+#include "Graph/UF.hpp"
 #include "testTool.hpp"
 #include <iostream>
 #include <list>
@@ -15,8 +15,7 @@ int main(int argc, char const* argv[]) {
     cout << gNum.path(0, 4) << endl;
     cout << gNum.path(2, 3) << endl;
     cout << gNum.minPath(2, 3) << endl;
-    cout << "Does the graph have cycle: " << (hasCycle(gNum) ? "true" : "false")
-         << endl;
+    cout << "Does the graph have cycle: " << cycle(gNum) << endl;
 
     cout << "================ UF TEST ================" << endl;
     UF guf("Asset/text/tinyGraph.txt");
