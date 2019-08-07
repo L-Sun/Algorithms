@@ -6,6 +6,11 @@
 
 class UF {
 public:
+    UF(int vertices) {
+        id = std::vector<int>(vertices);
+        sz = std::vector<int>(vertices, 1);
+        std::iota(id.begin(), id.end(), 0);
+    }
     UF(const std::string& file_name) {
         std::ifstream file(file_name);
         file >> count;
@@ -20,11 +25,6 @@ public:
     }
 
     bool isConnected(int p, int q) { return find(p) == find(q); }
-
-private:
-    std::vector<int> id;
-    std::vector<int> sz;
-    int              count;
 
     int find(int p) {
         int pRoot = p;
@@ -56,4 +56,9 @@ private:
             sz[pRoot] += sz[qRoot];
         }
     }
+
+private:
+    std::vector<int> id;
+    std::vector<int> sz;
+    int              count;
 };
