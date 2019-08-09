@@ -2,7 +2,8 @@
     "clang.cxxflags": [
         "-Wno-pragma-once-outside-header",
         "-IC:/googletest/googletest/include",
-        "-I/home/lawliet/workspace/cpp/Algorithms/Algorithms"
+        "-I/home/lawliet/workspace/cpp/Algorithms/Algorithms",
+        "-IC:/Users/54405/Documents/workspace/Algorithm/Algorithms"
     ],
     "clang.completion.enable": false,
     "path-intellisense.mappings": {
