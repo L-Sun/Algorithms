@@ -38,6 +38,40 @@ std::ostream& operator<<(std::ostream& out, std::queue<T> q) {
     return out;
 }
 
+template <typename T>
+std::ostream& operator<<(std::ostream& out, const std::list<const T>& l) {
+    auto p = l.cbegin();
+    if (p != l.cend()) {
+        out << *p++;
+        while (p != l.cend()) out << "->" << *p++;
+    }
+    return out;
+}
+
+template <typename T>
+std::ostream& operator<<(std::ostream& out, std::stack<const T> s) {
+    if (s.empty()) return out;
+    out << s.top();
+    s.pop();
+    while (!s.empty()) {
+        out << ", " << s.top();
+        s.pop();
+    }
+    return out;
+}
+
+template <typename T>
+std::ostream& operator<<(std::ostream& out, std::queue<const T> q) {
+    if (q.empty()) return out;
+    out << q.front();
+    q.pop();
+    while (!q.empty()) {
+        out << ", " << q.front();
+        q.pop();
+    }
+    return out;
+}
+
 template <typename F, typename... Args>
 void timeFuncInvocation(F&& func, Args&&... params) {
     auto start = std::chrono::steady_clock::now();

@@ -50,8 +50,8 @@ template <typename T>
 class EdgeWeightedGraph {
 public:
     EdgeWeightedGraph(int V) {
-        mSymbol = std::vector<T>(V);
-        mAdj    = std::vector<std::list<pEdge>>(V);
+        mSymbols = std::vector<T>(V);
+        mAdj     = std::vector<std::list<pEdge>>(V);
     };
 
     EdgeWeightedGraph(const std::string file_name) {
@@ -63,14 +63,14 @@ public:
 
         int vertices, edges;
         file >> vertices >> edges;
-        mSymbol = std::vector<T>(vertices);
-        mAdj    = std::vector<std::list<std::shared_ptr<Edge>>>(vertices);
+        mSymbols = std::vector<T>(vertices);
+        mAdj     = std::vector<std::list<std::shared_ptr<Edge>>>(vertices);
         initializeSymbol(file);
         T      v, w;
         double weight;
         while (file) {
             file >> v >> w >> weight;
-            pEdge e = std::make_shared<Edge>(mKey[v], mKey[w], weight);
+            pEdge e = std::make_shared<Edge>(mKeys[v], mKeys[w], weight);
             addEdge(e);
         }
         file.close();
@@ -85,27 +85,27 @@ public:
 
     inline int                     V() const { return mAdj.size(); }
     inline int                     E() const { return mEdge; }
-    inline const std::map<T, int>& keys() const { return mKey; }
-    inline const std::vector<T>&   symbols() const { return mSymbol; }
-    inline const T&                symbol(int id) const { return mSymbol[id]; }
-    inline int id(const T& symbol) const { return mKey.at(symbol); }
+    inline const std::map<T, int>& keys() const { return mKeys; }
+    inline const std::vector<T>&   symbols() const { return mSymbols; }
+    inline const T&                symbol(int id) const { return mSymbols[id]; }
+    inline int id(const T& symbol) const { return mKeys.at(symbol); }
 
     friend std::ostream& operator<<(std::ostream&            out,
                                     const EdgeWeightedGraph& ewg) {
         out << "====== Edge Weight Graph ======" << std::endl;
         out << "Vertices: " << ewg.V() << " Edge: " << ewg.E() << std::endl;
-        for (std::pair<T, int>&& s : ewg.mKey)
+        for (std::pair<T, int>&& s : ewg.mKeys)
             for (const pEdge& p : ewg.mAdj[s.second])
                 if (p->v() == s.second)
-                    out << s.first << "-" << ewg.mSymbol[p->w()] << ": "
+                    out << s.first << "-" << ewg.mSymbols[p->w()] << ": "
                         << p->weight() << std::endl;
 
         return out;
     }
 
 private:
-    std::map<T, int>              mKey;
-    std::vector<T>                mSymbol;
+    std::map<T, int>              mKeys;
+    std::vector<T>                mSymbols;
     std::vector<std::list<pEdge>> mAdj;
     int                           mEdge;
 
@@ -116,13 +116,13 @@ private:
         int    i = 0;
         while (file) {
             file >> v >> w >> weight;
-            if (mKey.find(v) == mKey.end()) {
-                mKey[v]          = i++;
-                mSymbol[mKey[v]] = v;
+            if (mKeys.find(v) == mKeys.end()) {
+                mKeys[v]           = i++;
+                mSymbols[mKeys[v]] = v;
             }
-            if (mKey.find(w) == mKey.end()) {
-                mKey[w]          = i++;
-                mSymbol[mKey[w]] = w;
+            if (mKeys.find(w) == mKeys.end()) {
+                mKeys[w]           = i++;
+                mSymbols[mKeys[w]] = w;
             }
         }
         file.clear();
