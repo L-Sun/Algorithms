@@ -1,4 +1,4 @@
-# add_executable(BSTTest BSTTest.cpp)
+add_executable(BSTTest BSTTest.cpp)
 # target_link_libraries(MyTest ${GTEST_BOTH_LIBRARIES})
 # gtest_add_tests(TARGET MyTest)
 

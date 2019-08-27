@@ -126,7 +126,8 @@ template <typename T>
 class SP {
 public:
     SP(const EdgeWeightedDigraph<T>& ewd, const T& s)
-        : mEwd(ewd),
+        : mS(s),
+          mEwd(ewd),
           mEdgeTo(ewd.V(), nullptr),
           mDistTo(ewd.V(), std::numeric_limits<double>::max()) {
         mDistTo[mEwd.key(s)] = 0.0;
@@ -143,21 +144,28 @@ public:
     bool   hasPathTo(const T& v) {
         return mDistTo[mEwd.key(v)] < std::numeric_limits<double>::max();
     }
-    std::list<const DirectedEdge> pathTo(const T& v) {
-        if (!hasPathTo(v)) return std::list<DirectedEdge>();
-        std::list<const DirectedEdge> path;
-        for (auto e = mEdgeTo[mEwd.key(v)]; e != nullptr; e = mEdgeTo[e]) {
-            auto _e = DirectedEdge(mEwd.symbol(e->from()), mEwd.symbol(e->to()),
-                                   e->weight());
-            path.push_front(_e);
-        }
+    std::string pathTo(const T& v) {
+        if (!hasPathTo(v)) return "";
+        std::stringstream   path;
+        std::stack<pDiEdge> s;
 
-        return path;
+        for (auto e = mEdgeTo[mEwd.key(v)]; e != nullptr;
+             e      = mEdgeTo[e->from()])
+            s.push(e);
+
+        path << "From " << mS << " to " << v << ": ";
+        while (!s.empty()) {
+            pDiEdge e = s.top();
+            path << mEwd.symbol(e->from()) << "--(" << e->weight() << ")-->";
+            s.pop();
+        }
+        path << v;
+        return path.str();
     }
 
 private:
+    T                             mS;
     const EdgeWeightedDigraph<T>& mEwd;
-    std::stringstream             mSs;
     std::vector<pDiEdge>          mEdgeTo;
     std::vector<double>           mDistTo;
 
